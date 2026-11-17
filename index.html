@@ -14,14 +14,14 @@
 <style>
 :root{
   --bg:#05080d; --panel:#0b1118; --card:#0f1620; --card2:#0a0f15; --line:#1b2532; --line2:#2a3647; --line3:#36465b; --text:#dfe6ef; --soft:#b9c4d2; --soft2:#c9d2de; --mute:#7f8b9c;
-  --up:#1fcf8f; --down:#f0605d; --gold:#f5c542; --blue:#4c9aff; --purple:#b388ff; --orange:#ff9f43; --aqua:#22d3ee;
+  --up:#1fcf8f; --down:#f0605d; --gold:#f5c542; --blue:#4c9aff; --purple:#b388ff; --orange:#ff9f43; --aqua:#22d3ee; --pink:#ff5fa2; --lime:#a3e635; --indigo:#8b9dff;
   --chart:#020407; --hdr:rgba(5,8,13,.92); --veil:rgba(5,8,13,.75); --on-gold:#1b1505; --on-up:#03140d;
   --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
   --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
 }
 [data-theme="light"]{
   --bg:#f3f5f9; --panel:#eef2f7; --card:#ffffff; --card2:#f7f9fc; --line:#dde3ec; --line2:#c9d2de; --line3:#b7c2d1; --text:#131a26; --soft:#3d4757; --soft2:#2c3646; --mute:#5d6879;
-  --up:#087f5b; --down:#c62f2c; --gold:#946200; --blue:#1a66c9; --purple:#7445cc; --orange:#b45000; --aqua:#0e7490;
+  --up:#087f5b; --down:#c62f2c; --gold:#946200; --blue:#1a66c9; --purple:#7445cc; --orange:#b45000; --aqua:#0e7490; --pink:#be185d; --lime:#4d7c0f; --indigo:#4338ca;
   --chart:#ffffff; --hdr:rgba(243,245,249,.92); --veil:rgba(255,255,255,.85); --on-gold:#ffffff; --on-up:#ffffff;
 }
 *{box-sizing:border-box}
@@ -170,10 +170,10 @@ canvas{display:block;width:100%}
 const THEMES={
  dark:{name:'dark',bg:'#020407',text:'#e6ecf3',mute:'#8a96a8',pillBg:'rgba(2,4,7,.9)',metal:'#8b95a1',edge:'rgba(225,232,240,.55)',pore:'#05070a',rim:'rgba(205,214,226,.38)',
   mold:'#26303d',moldLine:'#3c4858',sand:'#a08960',sandDot:'#7a6545',melt:'#ff7a29',meltHi:'#ffd166',up:'#1fcf8f',down:'#f0605d',gold:'#f5c542',blue:'#4c9aff',purple:'#b388ff',orange:'#ff9f43',aqua:'#22d3ee',
-  grid:'#111a24',panel:'#0b1118',line:'#1f2a38',ctAir:'#07090c',iron:'#eef2f6',bubble:'#e9f4ff'},
+  grid:'#111a24',panel:'#0b1118',line:'#1f2a38',ctAir:'#07090c',iron:'#eef2f6',bubble:'#e9f4ff',pink:'#ff5fa2',lime:'#a3e635',indigo:'#8b9dff',sandCT:'#5f5b53'},
  light:{name:'light',bg:'#ffffff',text:'#131a26',mute:'#5d6879',pillBg:'rgba(255,255,255,.95)',metal:'#98a2ae',edge:'rgba(40,48,60,.5)',pore:'#141a22',rim:'rgba(255,255,255,.55)',
   mold:'#d3dbe6',moldLine:'#aeb9c8',sand:'#d9c49c',sandDot:'#b39a6e',melt:'#f06a1d',meltHi:'#ffb547',up:'#087f5b',down:'#c62f2c',gold:'#946200',blue:'#1a66c9',purple:'#7445cc',orange:'#b45000',aqua:'#0e7490',
-  grid:'#eef1f5',panel:'#f3f5f9',line:'#dde3ec',ctAir:'#0b0e12',iron:'#eef2f6',bubble:'#ffffff'}};
+  grid:'#eef1f5',panel:'#f3f5f9',line:'#dde3ec',ctAir:'#0b0e12',iron:'#eef2f6',bubble:'#ffffff',pink:'#be185d',lime:'#4d7c0f',indigo:'#4338ca',sandCT:'#6e685d'}};
 const C=Object.assign({},THEMES.dark);
 function setCanvasTheme(t){Object.assign(C,THEMES[t]||THEMES.dark);}
 const MONO="'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace";
@@ -238,7 +238,11 @@ const AREAS=[
  {id:'lunker',name:'Lunker & Schwindung',acc:'--orange',desc:'Wenn beim Erstarren Metall fehlt: zerklüftete Hohlräume.',icon:'<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M28 6l4 12 12-6-6 12 12 4-12 4 6 12-12-6-4 12-4-12-12 6 6-12-12-4 12-4-6-12 12 6z"/></svg>'},
  {id:'kern',name:'Kerne & Kernbruch',acc:'--purple',desc:'Sandkerne, Kernbruch, Kernversatz und Wanddicken.',icon:'<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><rect x="5" y="10" width="46" height="36" rx="6"/><rect x="15" y="20" width="26" height="16" rx="5"/><path d="M29 20l-3 6 4 4-3 6"/></svg>'},
  {id:'weitere',name:'Weitere Gussfehler',acc:'--down',desc:'Oxidhäute, Kaltlauf, Warmrisse und Unterfüllung.',icon:'<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M10 8l10 12-6 8 12 10-4 10"/><path d="M20 20l12-2"/><path d="M26 38l14 2"/></svg>'},
+ {id:'einschluss',name:'Einschlüsse & Druckguss',acc:'--pink',desc:'Fremdmetall, Sand, Kerngas, Penetration, Druckguss-Poren und Oxidnester.',icon:'<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3"><rect x="5" y="10" width="46" height="36" rx="6"/><path d="M20 22l6-3 5 4-2 6-7 1z" fill="currentColor"/><circle cx="38" cy="34" r="3"/><circle cx="14" cy="36" r="2"/></svg>'},
+ {id:'bauteile',name:'Bauteile im CT',acc:'--lime',desc:'Zylinderkopf, Kurbelgehäuse, Strukturteil, Elektrogehäuse und kritische Zonen.',icon:'<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3"><rect x="4" y="12" width="48" height="34" rx="5"/><circle cx="19" cy="26" r="6"/><circle cx="37" cy="26" r="6"/><path d="M16 46a12 8 0 0 1 24 0"/></svg>'},
+ {id:'praxis',name:'Prüfpraxis VGStudio',acc:'--indigo',desc:'Wanddicke, Ausrichtung, Schwellwert, Auflösung und Befund-Doku.',icon:'<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3"><rect x="4" y="8" width="48" height="32" rx="4"/><path d="M18 48h20M28 40v8"/><path d="M12 30l8-8 6 5 10-12 8 7"/></svg>'},
  {id:'ct',name:'Im CT bewerten',acc:'--gold',desc:'Grauwerte, Defektanalyse, Porosität in % und Artefakte.',icon:'<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3"><circle cx="28" cy="28" r="22"/><circle cx="28" cy="28" r="10"/><path d="M28 2v10M28 44v10M2 28h10M44 28h10"/></svg>'}];
+{const i=AREAS.findIndex(a=>a.id==='ct');AREAS.splice(6,0,AREAS.splice(i,1)[0]);}
 const AREA=Object.fromEntries(AREAS.map(a=>[a.id,a]));
 
 /* =================== Lektionen =================== */
@@ -880,6 +884,387 @@ add({id:'lage',cat:'ct',title:'Lage zählt: Dichtfläche',sub:'Gleicher Fehler, 
   bedeutung:'Eine Pore unter einer Dichtfläche kann nach der Bearbeitung zu Undichtheit führen. Dieselbe Pore mitten in einer dicken Wand ist oft zulässig.',
   tipp:'Die verbindlichen Zonen und Grenzwerte stehen in Zeichnung und Prüfvorgabe. Im Zweifel: Lage, Größe und Restwand dokumentieren und nachfragen.'}});
 
+/* =================== PAKET 2–4 =================== */
+function blobShape(seed,size,flat=.85){const r=rng(seed),p1=r()*6,p2=r()*6,p3=r()*6,pts=[];for(let i=0;i<40;i++){const a=i/40*Math.PI*2,rad=size*(.8+.15*Math.sin(2*a+p1)+.1*Math.sin(3*a+p2)+.06*Math.sin(5*a+p3));pts.push([Math.cos(a)*rad,Math.sin(a)*rad*flat]);}return pts;}
+function drawBlob(g,x,y,pts,k,fill,stroke){if(k<=0)return;g.beginPath();pts.forEach((p,i)=>{const X=x+p[0]*k,Y=y+p[1]*k;i?g.lineTo(X,Y):g.moveTo(X,Y);});g.closePath();g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=1.2;g.stroke();}}
+function sandBlob(g,x,y,pts,k,seed=5){if(k<=0)return;g.save();g.globalAlpha=Math.min(1,k);drawBlob(g,x,y,pts,1,C.sandCT);g.clip();const r=rng(seed);for(let i=0;i<300;i++){g.fillStyle=r()<.55?C.pore:'rgba(255,255,255,.2)';g.fillRect(x-70+r()*140,y-55+r()*110,1.8,1.8);}g.restore();}
+function streaks(g,x1,y1,x2,y2,a){if(a<=0)return;g.save();g.globalAlpha=a;g.strokeStyle='rgba(0,0,0,.55)';g.lineWidth=1.4;for(let i=-3;i<=3;i++){g.beginPath();g.moveTo(x1,y1+i*2);g.lineTo(x2,y2+i*5);g.stroke();}g.restore();}
+function holeFill(g,p){g.save();g.fillStyle=C.bg;g.fill(p);g.restore();}
+
+/* ---------- EINSCHLÜSSE & DRUCKGUSS ---------- */
+const FE={body:mk([['r',60,70,480,250,24],['c',170,200,32]]),s:blobShape(13,15)};
+add({id:'fremdeinschluss',cat:'einschluss',title:'Fremdeinschluss (Eisen)',sub:'Heller Fleck im Aluminium',total:14000,
+ lead:'Nicht jeder Fehler ist dunkel. Ein heller Fleck zeigt Material, das dichter ist als Aluminium – meist Eisen oder Stahl.',
+ steps:[{at:0,text:'Ein CT-Schnitt durch ein Aluminiumteil.'},
+  {at:1500,text:'Ein HELLER Fleck taucht auf – deutlich heller als das Aluminium drumherum.'},
+  {at:4500,text:'Heller heißt dichter: Hier steckt ein Fremdmetall, meist Eisen oder Stahl. Daneben können dunkle Streifen durch Strahlaufhärtung entstehen.'},
+  {at:9000,text:'Herkunft: Abrieb von Werkzeugen und Rührern, nicht sauberer Schrott oder abgeplatzte Teile aus Tiegel und Ofen.'}],
+ draw(g,t){bg(g);fillMetal(g,FE.body);
+  g.save();g.clip(FE.body,'evenodd');streaks(g,350,195,530,185,F(t,4500,900)*.8);streaks(g,310,195,240,200,F(t,4500,900)*.6);g.restore();
+  drawBlob(g,330,195,FE.s,E(t,1500,3000),C.iron,C.edge);
+  pill(g,330,140,'HELLER FLECK',C.text,IN(t,1600,4500));
+  pill(g,330,140,'DICHTER ALS ALU = FREMDMETALL',C.pink,F(t,4600));ring(g,330,195,26,C.pink,F(t,4600));
+  pill(g,440,255,'AUFHÄRTUNG',C.gold,F(t,5300));
+  pill(g,300,352,'QUELLE: WERKZEUG, SCHROTT, OFEN',C.mute,F(t,9100));
+  tag(g,'CT-SCHNITT');},
+ box:{was:'Ein Fremdeinschluss ist ein Stück fremdes Material im Gussteil. Ist es dichter als Aluminium (Eisen, Stahl, Kupfer), erscheint es im CT hell.',
+  erkennen:['Heller als Aluminium, oft unregelmäßig geformt','Daneben manchmal dunkle Streifen (Strahlaufhärtung)','Einzeln, nicht als Netz oder Feld'],
+  bedeutung:'Ein harter Einschluss wirkt wie eine Kerbe und kann bei der Bearbeitung das Werkzeug beschädigen oder offen an der Fläche liegen.',
+  tipp:'Findest du mehrere helle Einschlüsse in verschiedenen Teilen, informiere die Gießerei – oft steckt ein verschlissenes Werkzeug oder Rührgerät dahinter.'}});
+
+const SE={body:mk([['r',60,70,480,250,24],['r',150,160,170,80,16]]),core:mk([['r',150,160,170,80,16]]),s:blobShape(27,24,.75)};
+const SE_G=(()=>{const r=rng(31),L=[];for(let i=0;i<26;i++)L.push([300+r()*20,165+r()*70,r()]);return L;})();
+add({id:'sandeinschluss',cat:'einschluss',title:'Sandeinschluss',sub:'Kernsand im Metall',total:15500,
+ lead:'Bröckelt Sand vom Kern oder der Form, schwimmt er in der Schmelze mit und bleibt im Bauteil stecken.',
+ steps:[{at:0,text:'Der Sandkern liegt in der Schmelze.'},
+  {at:2000,text:'An einer Kante ist der Kern zu schwach: Sandkörner lösen sich und werden von der Strömung mitgerissen.'},
+  {at:7500,text:'Im CT: ein körniger Bereich – dunkler als Aluminium, aber heller als Luft. Das ist ein SANDEINSCHLUSS.'},
+  {at:11500,text:'Typisch in der Nähe von Kernen, Kernmarken und Anschnitten.'}],
+ draw(g,t){bg(g);const A=t<7500;
+  if(A){fillMelt(g,SE.body);fillSand(g,SE.core,1,4,[150,160,170,80]);
+   if(t>2000){const k=E(t,2000,7000);g.fillStyle=C.sand;SE_G.forEach(p=>{const x=p[0]+k*(120+p[2]*40),y=p[1]-k*(60+p[2]*30)+Math.sin(t/300+p[2]*8)*3;g.fillRect(x,y,4,4);});}
+   arrow(g,330,200,430,140,C.orange,IN(t,2100,7500));}
+  else{fillMetal(g,SE.body);sandBlob(g,440,140,SE.s,E(t,7500,8500),9);}
+  pill(g,235,200,'SANDKERN',C.purple,IN(t,200,7500));
+  pill(g,430,95,'SANDKÖRNER LÖSEN SICH',C.orange,IN(t,2100,7500));
+  pill(g,440,95,'KÖRNIG',C.text,F(t,7600));
+  pill(g,440,215,'GRAU ZWISCHEN LUFT UND ALU',C.gold,F(t,8600));
+  pill(g,235,345,'OFT NAHE AM KERN',C.purple,F(t,11600));
+  tag(g,A?'SCHNITT · BEIM GIESSEN':'CT-SCHNITT');},
+ box:{was:'Ein Sandeinschluss ist Formstoff (Kern- oder Formsand), der ins Metall gelangt ist und dort eingeschlossen wurde.',
+  erkennen:['Körnige, fleckige Struktur','Grauwert zwischen Luft (schwarz) und Aluminium (grau)','Oft unregelmäßig, nahe Kernen oder Anschnitten'],
+  bedeutung:'Sand ist hart und spröde. An einer bearbeiteten Fläche reißt er heraus und hinterlässt eine Vertiefung; in Kanälen kann er sich lösen.',
+  tipp:'Vergleiche den Grauwert mit einer echten Pore im gleichen Bild: Ist der Fleck deutlich heller als die Pore, ist es eher Sand als Luft.'}});
+
+const KG={body:mk([['r',60,70,480,250,24],['r',170,165,260,80,18]]),core:mk([['r',170,165,260,80,18]])};
+const KG_B=[[215,7],[262,5],[318,9],[372,6],[405,4]];
+add({id:'kerngas',cat:'einschluss',title:'Kerngas-Blasen',sub:'Gas aus dem Kernbinder',total:15500,
+ lead:'Sandkerne sind mit einem Binder verklebt. Im heißen Metall verbrennt er – und das Gas sucht sich einen Weg.',
+ steps:[{at:0,text:'Der Sandkern ist von flüssigem Aluminium umgeben und wird sehr heiß.'},
+  {at:2000,text:'Der Binder im Kern zersetzt sich und bildet Gas. Kann es nicht über die Kernmarken entweichen, drückt es ins Metall.'},
+  {at:6000,text:'Die Blasen bleiben an der Kernoberfläche hängen – vor allem an der Oberseite, weil Gas nach oben steigt.'},
+  {at:8500,text:'Im CT: runde Poren direkt an der Kanalwand, oft halb offen zum Kanal hin. Das sind KERNGAS-BLASEN.'}],
+ draw(g,t){bg(g);const A=t<8500;
+  if(A){fillMelt(g,KG.body);fillSand(g,KG.core,1,8,[170,165,260,80]);
+   g.save();g.clip(KG.core);glow(g,300,205,140,40,.35*F(t,1000,1000));g.restore();
+   if(t>2000){g.save();g.fillStyle=C.bubble;KG_B.forEach((b,i)=>{const k=E(t,2000+i*500,4500+i*500),y=165-b[1]*.6-k*(i%2?26:6);g.globalAlpha=.9;g.beginPath();g.arc(b[0],y,b[1]*Math.min(1,k*1.5),0,7);g.fill();});g.restore();}}
+  else{fillMetal(g,KG.body);KG_B.forEach((b,i)=>{if(i%2===0)pore(g,b[0],165-b[1]*.55,b[1],F(t,8600+i*200));});}
+  pill(g,300,205,'SANDKERN',C.purple,IN(t,200,2000));
+  pill(g,300,40,'BINDER VERBRENNT → GAS',C.orange,IN(t,2100,8500));
+  pill(g,300,280,'BLASEN AN DER KERNOBERSEITE',C.aqua,IN(t,6100,8500));
+  pill(g,300,40,'POREN DIREKT AM KANAL',C.aqua,F(t,8600));ring(g,318,160,18,C.aqua,F(t,8800));
+  pill(g,300,350,'ABHILFE: KERN ENTLÜFTEN, TROCKEN LAGERN',C.up,F(t,11500));
+  tag(g,A?'SCHNITT · BEIM GIESSEN':'CT-SCHNITT');},
+ box:{was:'Kerngas-Blasen entstehen durch Gase aus dem Kernbinder (und Feuchtigkeit im Kern), die ins flüssige Metall gedrückt werden.',
+  erkennen:['Runde Poren direkt an der Kern- bzw. Kanalwand','Bevorzugt an der Oberseite des Kerns (in Gießlage)','Teilweise zum Kanal hin offen'],
+  bedeutung:'Diese Poren schwächen genau die Wand zwischen Kanal und Außenseite – kritisch für Dichtheit von Wasser- und Ölräumen.',
+  tipp:'Liegen Poren immer an derselben Kanalwand, frag nach Kernentlüftung, Kernlagerung (Feuchte) und Bindermenge.'}});
+
+const PE_GR=(()=>{const L=[];for(let y=212;y<340;y+=17)for(let x=80+((y/17)%2)*9;x<525;x+=18)L.push([x,y]);return L;})();
+const PE_W=(()=>{const r=rng(44),pts=[[150,250]];for(let x=150;x<=450;x+=10){pts.push([x,170+(x>200&&x<400?(r()<.5?r()*16:r()*5):0)]);}pts.push([450,250]);return pts;})();
+add({id:'penetration',cat:'einschluss',title:'Penetration',sub:'Metall dringt in den Kern ein',total:15000,
+ lead:'Ist der Kern zu grob oder das Metall zu heiß, drückt sich Aluminium zwischen die Sandkörner. Die Kanalwand wird rau.',
+ steps:[{at:0,text:'Ganz nah herangezoomt: unten die Sandkörner des Kerns, oben flüssiges Aluminium.'},
+  {at:2500,text:'Unter Druck und Hitze dringt das Metall in die Lücken zwischen den Körnern ein – die PENETRATION.'},
+  {at:7500,text:'Im CT: Die Kanalwand ist nicht glatt, sondern rau und zackig. Metallspitzen ragen in den Kanal.'},
+  {at:11000,text:'Folge: festsitzender Sand im Kanal, verengter Querschnitt und raue Oberfläche, an der sich Schmutz absetzt.'}],
+ draw(g,t){bg(g);const A=t<7500;
+  if(A){const d=E(t,2500,7000)*70;fillMelt(g,mk([['r',60,60,480,150+d,0]]));
+   g.save();g.beginPath();g.rect(60,205,480,140);g.clip();PE_GR.forEach(p=>{g.fillStyle=C.sand;g.beginPath();g.arc(p[0],p[1],8,0,7);g.fill();g.strokeStyle=C.sandDot;g.lineWidth=1;g.stroke();});g.restore();
+   g.strokeStyle=C.mute;g.lineWidth=1.5;g.setLineDash([5,4]);g.beginPath();g.moveTo(60,205);g.lineTo(540,205);g.stroke();g.setLineDash([]);}
+  else{fillMetal(g,mk([['r',60,60,480,280,22]]));const p=mk([['p',PE_W]]);holeFill(g,p);g.strokeStyle=C.edge;g.lineWidth=1.3;g.stroke(p);}
+  pill(g,300,40,'METALL',C.orange,IN(t,200,7500));pill(g,300,365,'SANDKÖRNER (KERN)',C.purple,IN(t,200,7500));
+  pill(g,300,40,'METALL ZWISCHEN DEN KÖRNERN',C.orange,IN(t,2600,7500));
+  pill(g,300,40,'RAUE, ZACKIGE KANALWAND',C.purple,F(t,7600));ring(g,300,178,30,C.purple,F(t,7800));
+  pill(g,300,300,'KANAL',C.mute,F(t,7600));
+  pill(g,300,365,'SAND HAFTET · KANAL ENGER',C.down,F(t,11100));
+  tag(g,A?'ZOOM · KERNOBERFLÄCHE':'CT-SCHNITT');},
+ box:{was:'Penetration (auch Vererzung) bedeutet: Das flüssige Metall dringt in die Poren zwischen den Sandkörnern des Kerns ein.',
+  erkennen:['Raue, zackige oder „pelzige“ Kanaloberfläche','Feine Metallspitzen ragen in den Kanal','Oft festsitzender Sand nach dem Entkernen'],
+  bedeutung:'Verengt Kanäle und erschwert das Entkernen. Restsand kann später im Kühl- oder Ölkreislauf landen.',
+  tipp:'Im Soll-Ist-Vergleich zeigt sich Penetration als kleinflächige, gesprenkelte rote Stellen (Material zu viel) an Kanalwänden.'}});
+
+const DG={b:[40,140,520,110],p:poreField(52,30,{box:[50,178,500,54],ok:()=>true},1.5,5)};
+add({id:'druckguss',cat:'einschluss',title:'Porosität im Druckguss',sub:'Dichte Randschale, poröse Mitte',total:15500,
+ lead:'Im Druckguss wird die Form in Millisekunden gefüllt. Dabei wird Luft eingeschlossen – sie sammelt sich in der Wandmitte.',
+ steps:[{at:0,text:'Eine dünne Druckguss-Wand im Schnitt.'},
+  {at:800,text:'Die Schmelze schießt turbulent in die Form und wirbelt Luft und Trennmittel-Gase ein.'},
+  {at:4500,text:'An der kalten Formwand erstarrt sofort eine feine, dichte RANDSCHALE.'},
+  {at:7000,text:'Die Poren sammeln sich in der WANDMITTE, die zuletzt erstarrt.'},
+  {at:10500,text:'Achtung beim Bearbeiten: Wird die Randschale weggefräst, liegen die Poren plötzlich offen.'}],
+ draw(g,t){bg(g);const [x,y,w,h]=DG.b,f=E(t,800,4000),cut=22*E(t,10500,12500);
+  if(t<4600){fillMold(g,mk([['r',x-20,y-20,w+40,h+40,12],['r',x,y,w,h,8]]));g.save();g.clip(mk([['r',x,y,w,h,8]]));fillMelt(g,mk([['r',x,y,w*f,h,0]]));g.restore();
+   g.save();g.strokeStyle=C.bubble;g.lineWidth=2;for(let i=0;i<7;i++){const cx=x+40+i*65,cy=y+h/2;if(cx>x+w*f)break;g.beginPath();g.arc(cx,cy,14,(t/200+i),(t/200+i)+4.2);g.stroke();}g.restore();}
+  else{fillMetal(g,mk([['r',x,y+cut,w,h-cut,cut>1?2:8]]));
+   if(t>10500&&cut<21.5){g.save();g.globalAlpha=1-E(t,10500,12500);fillMetal(g,mk([['r',x,y,w,cut+1,0]]),1,false);g.restore();}
+   g.save();g.clip(mk([['r',x,y+cut,w,h-cut,2]]));DG.p.forEach((q,i)=>pore(g,q.x,q.y,q.r,E(t,7000+i*40,7800+i*40)));g.restore();
+   DG.p.forEach(q=>{if(q.y-q.r<y+cut){g.fillStyle=C.bg;g.beginPath();g.arc(q.x,q.y,q.r,Math.PI,0);g.fill();}});
+   g.save();g.globalAlpha=IN(t,4600,10500)*.9;g.strokeStyle=C.up;g.lineWidth=3;g.setLineDash([7,5]);[y+12,y+h-12].forEach(yy=>{g.beginPath();g.moveTo(x+8,yy);g.lineTo(x+w-8,yy);g.stroke();});g.restore();}
+  pill(g,300,100,'TURBULENTE FÜLLUNG',C.orange,IN(t,900,4600));
+  pill(g,300,100,'DICHTE RANDSCHALE',C.up,IN(t,4700,10500));
+  pill(g,300,300,'POREN IN DER WANDMITTE',C.aqua,F(t,7100));
+  pill(g,300,100,'GEFRÄST → POREN OFFEN!',C.down,F(t,10600));
+  tag(g,'SCHNITT · DRUCKGUSS-WAND');},
+ box:{was:'Im Druckguss entsteht Porosität vor allem durch eingeschlossene Luft und Gase aus dem Trennmittel – zusätzlich zu Schwindungsporosität in dickeren Bereichen.',
+  erkennen:['Dichte Randschicht (die äußersten Zehntelmillimeter bis etwa 1 mm)','Poren konzentriert in der Wandmitte','Oft viele Poren, teils unregelmäßig (Gas + Schwindung gemischt)'],
+  bedeutung:'Solange die Randschale bleibt, sind Poren oft unkritisch. Bearbeitete Flächen und Gewinde sind die Schwachstellen.',
+  tipp:'Prüfe bei Druckgussteilen besonders die Bereiche, die später gefräst oder gebohrt werden – die Bearbeitungszugabe steht in der Zeichnung.'}});
+
+const ON=(()=>{const r=rng(66),L=[];for(let i=0;i<9;i++){const a=r()*Math.PI,len=25+r()*35,x=270+r()*70,y=170+r()*55;L.push([x,y,x+Math.cos(a)*len,y+Math.sin(a)*len,r()*6]);}return L;})();
+const ON_S=(()=>{const r=rng(67),L=[];for(let i=0;i<22;i++)L.push([255+r()*110,160+r()*80,1+r()*2.5,r()<.5]);return L;})();
+add({id:'oxidnest',cat:'einschluss',title:'Oxidnester & Schlacke',sub:'Verknäulte Häute und Krätze',total:14000,
+ lead:'Wird Krätze (Oxide von der Schmelzeoberfläche) mitgegossen, entsteht ein ganzes Nest aus Häuten, Poren und Partikeln.',
+ steps:[{at:0,text:'Ein CT-Schnitt, eher nahe am Anschnitt.'},
+  {at:1500,text:'Mehrere feine, gebogene Linien tauchen auf – verknäulte OXIDHÄUTE.'},
+  {at:5000,text:'Dazwischen kleine Poren und graue Partikel: KRÄTZE bzw. Schlacke aus dem Tiegel oder der Gießrinne.'},
+  {at:9000,text:'Zusammen bilden sie ein OXIDNEST – eine größere Schwachstelle als jede einzelne Haut.'}],
+ draw(g,t){bg(g);fillMetal(g,mk([['r',60,70,480,250,24]]));
+  ON.forEach((l,i)=>wavy(g,l[0],l[1],l[2],l[3],3,1.5,E(t,1500+i*250,2500+i*250),1.5,C.pore,l[4]));
+  ON_S.forEach((s,i)=>{const k=F(t,5000+i*80);if(k<=0)return;if(s[3])pore(g,s[0],s[1],s[2],k);else{g.save();g.globalAlpha=k;g.fillStyle=C.sandCT;g.fillRect(s[0],s[1],s[2]*2.4,s[2]*1.8);g.restore();}});
+  pill(g,300,40,'VERKNÄULTE OXIDHÄUTE',C.blue,F(t,1600));
+  pill(g,470,280,'KRÄTZE / SCHLACKE',C.gold,F(t,5100));
+  pill(g,300,350,'OXIDNEST',C.down,F(t,9100));ring(g,310,200,70,C.down,F(t,9100));
+  tag(g,'CT-SCHNITT');},
+ box:{was:'Ein Oxidnest ist eine Ansammlung von Oxidhäuten, Schlacke- bzw. Krätzepartikeln und kleinen Poren an einer Stelle.',
+  erkennen:['Mehrere dünne, gebogene Linien in einem Bereich','Dazu kleine Poren und graue Partikel','Häufig nahe Anschnitt, Filter oder Gießlauf'],
+  bedeutung:'Oxidnester trennen das Gefüge großflächig und können Ausgangspunkt für Risse und Undichtheit sein.',
+  tipp:'Saubere Schmelze (abkrätzen, Keramikfilter) und ruhige Füllung verhindern Oxidnester. Bei Häufung: Gießerei informieren.'}});
+
+/* ---------- BAUTEILE IM CT ---------- */
+const ZK={outer:[40,70,520,260],ports:[[200,175,36],[400,175,36]],wj:[[60,110,55,170],[485,110,55,170]],oil:[300,105,8]};
+ZK.dome=(()=>{const P=[];for(let i=0;i<=20;i++){const a=Math.PI+i/20*Math.PI;P.push([300+Math.cos(a)*150,330+Math.sin(a)*72]);}return P;})();
+ZK.body=mk([['r',...ZK.outer,20],...ZK.ports.map(p=>['c',...p]),...ZK.wj.map(r=>['r',...r,18]),['c',...ZK.oil],['p',ZK.dome]]);
+add({id:'zylinderkopf',cat:'bauteile',title:'Zylinderkopf',sub:'Wassermantel, Ventilstege, Brennraum',total:16000,
+ lead:'Ein Zylinderkopf ist eines der kompliziertesten Gussteile überhaupt. Diese Bereiche schaust du im CT besonders genau an.',
+ steps:[{at:0,text:'Ein vereinfachter Schnitt durch einen Zylinderkopf (ein Zylinder).'},
+  {at:1500,text:'Unten der BRENNRAUM, darüber die Kanäle für die Ventile (Ein- und Auslass).'},
+  {at:4500,text:'Seitlich der WASSERMANTEL – Sandkerne, die später das Kühlwasser führen. Oben ein ÖLKANAL.'},
+  {at:7500,text:'Der VENTILSTEG zwischen den Ventilen ist dünn und wird im Motor sehr heiß – eine der kritischsten Stellen.'},
+  {at:11000,text:'Typische Befunde: Porosität im Ventilsteg, Kernbruch und Kernversatz im Wassermantel, Poren unter Dichtflächen.'}],
+ draw(g,t){bg(g);fillMetal(g,ZK.body);
+  g.save();g.globalAlpha=F(t,7500);g.fillStyle=hexA(C.down,.28);g.fillRect(236,150,128,50);g.restore();
+  pores(g,[{x:290,y:178,r:2.5},{x:305,y:170,r:3},{x:318,y:183,r:2},{x:298,y:190,r:1.8}],t,11000,12000);
+  pill(g,300,350,'BRENNRAUM',C.orange,F(t,1600));pill(g,200,120,'VENTILKANAL',C.blue,F(t,2400));pill(g,400,120,'VENTILKANAL',C.blue,F(t,2600));
+  pill(g,88,345,'WASSERMANTEL',C.aqua,F(t,4600));pill(g,512,345,'WASSERMANTEL',C.aqua,F(t,4800));pill(g,300,45,'ÖLKANAL',C.gold,F(t,5600));
+  pill(g,300,225,'VENTILSTEG',C.down,F(t,7600));
+  ring(g,303,180,30,C.down,F(t,11100));
+  tag(g,'SCHEMA · ZYLINDERKOPF');},
+ box:{was:'Der Zylinderkopf schließt den Brennraum oben ab und enthält Ventilkanäle, Wassermantel, Ölkanäle und Lagerstellen für die Nockenwellen.',
+  erkennen:['Viele Sandkerne: Wassermantel, Ein- und Auslasskanäle, Ölkanäle','Dünne Stege zwischen Ventilen und Kanälen','Große, bearbeitete Dichtfläche zum Motorblock'],
+  bedeutung:'Ventilstege und Brennraumdach sind thermisch hoch belastet. Fehler dort können zu Rissen oder Undichtheit (Wasser ↔ Öl ↔ Brennraum) führen.',
+  tipp:'Prüfe den Wassermantel immer komplett auf Kernbruch und Kernversatz – ein verengter Kühlkanal führt zu heißen Stellen im Motor.'}});
+
+const KH={bores:[[180,170],[420,170]],r1:78,r2:92,brg:[300,340,40]};
+KH.body=mk([['r',30,60,540,280,20],['c',180,170,92],['c',420,170,92],['c',...KH.brg],['r',282,74,36,30,10]]);
+add({id:'kurbelgehaeuse',cat:'bauteile',title:'Kurbelgehäuse',sub:'Laufbuchsen, Stege, Lagerstühle',total:16000,
+ lead:'Im Kurbelgehäuse laufen die Kolben und lagert die Kurbelwelle. Hohe Kräfte und enge Stege machen es anspruchsvoll.',
+ steps:[{at:0,text:'Ein vereinfachter Querschnitt durch zwei Zylinder eines Kurbelgehäuses.'},
+  {at:1500,text:'Bei vielen Motoren sind Laufbuchsen aus Grauguss eingegossen – im CT als heller Ring zu sehen.'},
+  {at:4500,text:'Zwischen den Zylindern liegt der schmale ZYLINDERSTEG, oben ein Kühlkanal. Unten der LAGERSTUHL für die Kurbelwelle.'},
+  {at:8000,text:'Der Lagerstuhl ist eine Dickstelle – ein typischer Ort für Lunker und Schwindungsporosität.'},
+  {at:11500,text:'An der Buchse zählt die Anbindung: Ein dunkler Spalt zwischen Buchse und Aluminium bedeutet schlechte Verbindung.'}],
+ draw(g,t){bg(g);fillMetal(g,KH.body);
+  KH.bores.forEach(b=>{g.save();g.globalAlpha=F(t,1500);g.fillStyle=C.iron;g.beginPath();g.arc(b[0],b[1],KH.r2,0,Math.PI*2);g.moveTo(b[0]+KH.r1,b[1]);g.arc(b[0],b[1],KH.r1,0,Math.PI*2,true);g.fill('evenodd');g.restore();});
+  if(t>11500){g.save();g.globalAlpha=F(t,11500);g.strokeStyle=C.pore;g.lineWidth=2.5;g.beginPath();g.arc(180,170,KH.r2+1.5,2.4,3.6);g.stroke();g.restore();}
+  drawShrink(g,300,292,shrinkShape(71,9),E(t,8000,9200));
+  pill(g,180,170,'LAUFBUCHSE',C.text,F(t,1600));pill(g,420,170,'LAUFBUCHSE',C.text,F(t,1800));
+  pill(g,300,135,'ZYLINDERSTEG',C.gold,F(t,4600));pill(g,300,40,'KÜHLKANAL',C.aqua,F(t,5200));pill(g,300,370,'LAGERSTUHL',C.blue,F(t,5800));
+  pill(g,430,295,'LUNKER IM LAGERSTUHL',C.orange,F(t,8100));ring(g,300,292,16,C.orange,F(t,8100));
+  pill(g,90,300,'SPALT AN DER BUCHSE',C.down,F(t,11600));
+  tag(g,'SCHEMA · KURBELGEHÄUSE');},
+ box:{was:'Das Kurbelgehäuse (Motorblock) trägt Zylinder, Kurbelwelle und Wasser- und Ölkreislauf. Laufflächen sind entweder eingegossene Buchsen oder beschichtet.',
+  erkennen:['Helle Ringe = eingegossene Graugussbuchsen','Schmale Stege zwischen den Zylindern','Massige Lagerstühle unten'],
+  bedeutung:'Lunker im Lagerstuhl schwächen die Kurbelwellenlagerung. Schlechte Buchsenanbindung verschlechtert die Wärmeabfuhr.',
+  tipp:'Die hellen Buchsen erzeugen Strahlaufhärtung. Dunkle Streifen zwischen den Zylindern daher erst in anderen Schnittrichtungen prüfen, bevor du sie als Fehler wertest.'}});
+
+const STR={walls:[[60,60,480,14],[60,326,480,14],[60,60,14,280],[526,60,14,280],[176,74,10,252],[296,74,10,252],[416,74,10,252],[74,195,452,10]],nodes:[[181,200],[301,200],[421,200]]};
+add({id:'strukturteil',cat:'bauteile',title:'Strukturteil',sub:'Rippen, Knoten, Anschraubpunkte',total:15000,
+ lead:'Strukturteile (z. B. Federbeinaufnahmen, Längsträger) sind meist Druckgussteile mit dünnen Rippen. Gefährlich sind die Knoten.',
+ steps:[{at:0,text:'Ein Strukturteil von oben im Schnitt: dünne Außenwände und Versteifungsrippen.'},
+  {at:2500,text:'Wo sich Rippen kreuzen, entsteht ein KNOTEN – oft mit einem Dom zum Anschrauben. Hier ist mehr Material.'},
+  {at:6000,text:'Mehr Material = längere Erstarrung. Im Knoten sammelt sich Porosität.'},
+  {at:10000,text:'Strukturteile tragen Crash- und Fahrwerkslasten. Poren in Anschraubpunkten und Rippenansätzen sind daher besonders kritisch.'}],
+ draw(g,t){bg(g);STR.walls.forEach(w=>fillMetal(g,mk([['r',...w,2]]),1,false));
+  STR.nodes.forEach(n=>{fillMetal(g,mk([['c',n[0],n[1],24]]),F(t,2500),false);g.save();g.globalAlpha=F(t,2500);g.fillStyle=C.bg;g.beginPath();g.arc(n[0],n[1],8,0,7);g.fill();g.restore();});
+  STR.nodes.forEach((n,j)=>poreField(80+j,6,{box:[n[0]-20,n[1]-20,40,40],ok:(x,y,r)=>{const d=Math.hypot(x-n[0],y-n[1]);return d>12+r&&d<22-r;}},1.2,2.6).forEach((q,i)=>pore(g,q.x,q.y,q.r,F(t,6000+j*400+i*100))));
+  pill(g,240,130,'DÜNNE RIPPE',C.lime,F(t,300));
+  pill(g,301,250,'KNOTEN MIT DOM',C.lime,F(t,2600));
+  pill(g,301,40,'POREN IM KNOTEN',C.aqua,F(t,6100));STR.nodes.forEach(n=>ring(g,n[0],n[1],28,C.aqua,F(t,6200)));
+  pill(g,301,365,'ANSCHRAUBPUNKT = KRITISCH',C.down,F(t,10100));
+  tag(g,'SCHEMA · DRAUFSICHT');},
+ box:{was:'Strukturteile sind tragende Karosserie- oder Fahrwerksteile aus Aluminium-Druckguss mit dünnen Wänden und vielen Rippen.',
+  erkennen:['Dünne Wände und Rippen, große Fläche','Knoten und Dome an Rippenkreuzungen','Porosität vor allem in Knoten und dickeren Anbindungen'],
+  bedeutung:'Hier geht es um Festigkeit und Crashverhalten. Fehler an hoch belasteten Stellen (Anschraubpunkte, Rippenfüße) sind kritisch.',
+  tipp:'Bei Strukturteilen lohnt sich die Wanddickenanalyse: Zu dünne Rippen sind genauso ein Problem wie Poren.'}});
+
+const EG={parts:[[60,270,480,50],[60,110,30,165],[510,110,30,165],[40,92,70,22],[490,92,70,22],[286,180,48,94]],cool:[[160,295,12],[440,295,12]],bore:[302,180,16,62]};
+add({id:'elektrogehaeuse',cat:'bauteile',title:'Elektrogehäuse',sub:'Dichtflansch, Kühlkanal, Schraubdom',total:15000,
+ lead:'Gehäuse für Elektromotor oder Leistungselektronik müssen dicht sein – gegen Wasser von außen und Kühlmittel von innen.',
+ steps:[{at:0,text:'Querschnitt durch ein Elektrogehäuse: Boden, Seitenwände und oben ein Flansch.'},
+  {at:2000,text:'Oben die DICHTFLÄCHE am Flansch: Hier kommt der Deckel mit Dichtung drauf.'},
+  {at:5000,text:'Im Boden verlaufen KÜHLKANÄLE für das Kühlmittel.'},
+  {at:8000,text:'Der SCHRAUBDOM bekommt eine Gewindebohrung. Er ist eine Dickstelle – und dort sitzen gern Poren.'},
+  {at:11000,text:'Eine Pore, die die Bohrung anschneidet, kann das Gewinde schwächen oder einen Leckpfad bilden.'}],
+ draw(g,t){bg(g);EG.parts.forEach(p=>fillMetal(g,mk([['r',...p,3]]),1,false));
+  EG.cool.forEach(c=>{g.fillStyle=C.bg;g.beginPath();g.arc(c[0],c[1],c[2],0,7);g.fill();});
+  g.fillStyle=C.bg;g.fillRect(...EG.bore);
+  g.save();g.globalAlpha=F(t,2000);g.strokeStyle=C.blue;g.lineWidth=4;[[40,92,110,92],[490,92,560,92]].forEach(l=>{g.beginPath();g.moveTo(l[0],l[1]);g.lineTo(l[2],l[3]);g.stroke();});g.restore();
+  pore(g,322,232,5,F(t,11000));pore(g,296,258,3,F(t,11300));
+  pill(g,300,60,'DICHTFLÄCHE',C.blue,F(t,2100));arrow(g,230,62,112,88,C.blue,F(t,2200));arrow(g,370,62,488,88,C.blue,F(t,2200));
+  pill(g,160,345,'KÜHLKANAL',C.aqua,F(t,5100));pill(g,440,345,'KÜHLKANAL',C.aqua,F(t,5300));
+  pill(g,420,190,'SCHRAUBDOM',C.lime,F(t,8100));
+  pill(g,420,235,'PORE AN DER BOHRUNG',C.down,F(t,11100));ring(g,320,232,14,C.down,F(t,11100));
+  tag(g,'SCHEMA · QUERSCHNITT');},
+ box:{was:'Elektrogehäuse nehmen Motor, Batterie oder Leistungselektronik auf. Sie sind meist Druckgussteile mit integrierter Kühlung.',
+  erkennen:['Lange Dichtflächen am Flansch','Kühlkanäle im Boden oder in den Wänden','Viele Schraubdome mit Gewindebohrungen'],
+  bedeutung:'Dichtheit ist das wichtigste Kriterium: Poren unter Dichtflächen, an Kühlkanälen und an Gewinden sind besonders kritisch.',
+  tipp:'Schau dir Dichtflächen mit der Bearbeitungszugabe im Kopf an – eine Pore 0,5 mm unter dem Rohteil-Rand kann nach dem Fräsen offen sein.'}});
+
+add({id:'kritische-zonen',cat:'bauteile',title:'Kritische Zonen',sub:'Wo genau hinschauen?',total:14000,
+ lead:'Nicht jede Stelle im Bauteil ist gleich wichtig. Mit diesen Zonen weißt du, wo du am genauesten prüfen musst.',
+ steps:[{at:0,text:'Ein Zylinderkopf-Schnitt als Beispiel.'},
+  {at:1500,text:'ROT – höchste Aufmerksamkeit: Dichtflächen, Ventilstege und Bereiche, die bearbeitet werden.'},
+  {at:5000,text:'GOLD – genau prüfen: Wände zwischen Wasser, Öl und Außenseite.'},
+  {at:8500,text:'GRÜN – meist unkritisch: dicke, unbelastete Bereiche ohne Funktion. Hier gelten oft größere Grenzwerte.'},
+  {at:11500,text:'Welche Zone wo liegt und welche Grenzwerte gelten, steht verbindlich in Zeichnung und Prüfvorgabe.'}],
+ draw(g,t){bg(g);fillMetal(g,ZK.body);
+  g.save();g.clip(ZK.body,'evenodd');
+  g.globalAlpha=.42*F(t,8500);g.fillStyle=C.up;g.fillRect(0,0,W,H);
+  g.globalAlpha=.55*F(t,5000);g.fillStyle=C.gold;[[44,95,90,210],[466,95,90,210],[285,90,30,30]].forEach(r=>{g.beginPath();rrp(g,...r,14);g.fill();});
+  g.globalAlpha=.6*F(t,1500);g.fillStyle=C.down;g.fillRect(40,70,520,14);g.fillRect(236,150,128,50);g.fillRect(150,300,300,30);
+  g.restore();
+  pill(g,300,40,'ROT: DICHTFLÄCHE, VENTILSTEG',C.down,F(t,1600));
+  pill(g,90,370,'GOLD: WAND ZU WASSER/ÖL',C.gold,F(t,5100),'l');
+  pill(g,460,370,'GRÜN: UNKRITISCH',C.up,F(t,8600));
+  tag(g,'');},
+ box:{was:'Kritische Zonen sind Bereiche, in denen ein Fehler die Funktion direkt gefährdet: Dichtheit, Festigkeit oder Bearbeitbarkeit.',
+  erkennen:['Dicht- und Funktionsflächen, Gewinde, Lagerstellen','Dünne Wände zu Wasser-, Öl- oder Kühlmittelräumen','Hoch belastete Stege und Anschraubpunkte'],
+  bedeutung:'Derselbe Fehler kann in einer grünen Zone zulässig und in einer roten Zone Ausschuss sein.',
+  tipp:'Lege dir für jedes Bauteil eine eigene Merkliste der roten Zonen an – so prüfst du schneller und übersiehst nichts.'}});
+
+/* ---------- PRÜFPRAXIS ---------- */
+const WD={th:x=>70-50*(x-60)/480+8*Math.sin(x/38)};const PXMM=15;
+add({id:'wanddicke',cat:'praxis',title:'Wanddickenanalyse',sub:'Farbkarte richtig lesen',total:15500,
+ lead:'Die Wanddickenanalyse färbt jede Stelle nach ihrer Wanddicke. So findest du dünne Stellen im ganzen Bauteil auf einen Blick.',
+ steps:[{at:0,text:'Eine Wand, die von links nach rechts dünner wird.'},
+  {at:1500,text:'Die Kugelmethode: Eine Kugel wird durch die Wand gerollt. Die größte Kugel, die an einer Stelle hineinpasst, ergibt die Wanddicke.'},
+  {at:6500,text:'Jede Stelle bekommt eine Farbe: grün = dick genug, gold = knapp, rot = zu dünn.'},
+  {at:10000,text:'Mit der Mindestwanddicke aus der Zeichnung (hier 3,0 mm) siehst du sofort, wo das Teil zu dünn ist.'}],
+ draw(g,t){bg(g);const top=110,P=[[60,top],[540,top]];for(let x=540;x>=60;x-=6)P.push([x,top+WD.th(x)]);const path=mk([['p',P]]);fillMetal(g,path);
+  const k=F(t,6500,1200);if(k>0){g.save();g.clip(path);for(let x=60;x<540;x+=3){const mm=WD.th(x)/PXMM;g.fillStyle=mm<3?C.down:mm<3.5?C.gold:C.up;g.globalAlpha=.7*k;g.fillRect(x,top,3.2,90);}g.restore();}
+  if(t>1500&&t<10000){const x=60+460*E(t,1600,6200),r=WD.th(x)/2;g.save();g.strokeStyle=C.blue;g.lineWidth=2.5;g.beginPath();g.arc(x,top+r,r,0,7);g.stroke();g.restore();pill(g,x,top+2*r+30,de(WD.th(x)/PXMM)+' mm',C.blue,1);}
+  if(k>0){const gr=g.createLinearGradient(100,0,500,0);gr.addColorStop(0,C.down);gr.addColorStop(.4,C.gold);gr.addColorStop(1,C.up);g.save();g.globalAlpha=k;g.fillStyle=gr;g.fillRect(100,300,400,14);g.restore();text(g,100,330,'1,0',C.mute,11,'left',k);text(g,300,330,'3,0',C.mute,11,'center',k);text(g,500,330,'4,7 mm',C.mute,11,'right',k);}
+  pill(g,300,60,'KUGELMETHODE',C.blue,IN(t,1600,6500));
+  pill(g,300,60,'FARBE = WANDDICKE',C.up,IN(t,6600,10000));
+  pill(g,300,60,'UNTER 3,0 mm = ZU DÜNN',C.down,F(t,10100));
+  tag(g,'WANDDICKENANALYSE');},
+ box:{was:'Die Wanddickenanalyse (z. B. in VGStudio MAX) misst für jede Stelle der Oberfläche die Materialdicke und zeigt sie als Farbe.',
+  erkennen:['Kugelmethode: größte Kugel, die in die Wand passt','Strahlmethode: Abstand entlang der Flächennormale zur Gegenseite','Farbskala mit Mindestwanddicke aus der Zeichnung'],
+  bedeutung:'Zu dünne Wände entstehen durch Kernversatz, Kernverformung oder Formverschleiß – auch ohne jede Pore ist das Teil dann nicht in Ordnung.',
+  tipp:'Stell die Farbskala so ein, dass die Mindestwanddicke genau am Farbwechsel liegt. Dann springt jede dünne Stelle sofort ins Auge.'}});
+
+const AU={cad:[[120,110],[480,110],[480,300],[330,300],[330,250],[270,250],[270,300],[120,300]]};
+AU.scan=AU.cad.map(p=>[p[0]+(p[0]>300?9:0),p[1]]);
+function polyPath(P,dx=0,dy=0,rot=0,cx=300,cy=205){const c=Math.cos(rot),s=Math.sin(rot);return mk([['p',P.map(p=>{const x=p[0]-cx,y=p[1]-cy;return[cx+x*c-y*s+dx,cy+x*s+y*c+dy];})]]);}
+add({id:'ausrichtung',cat:'praxis',title:'Ausrichtung: Best-Fit & RPS',sub:'Wie der Soll-Ist-Vergleich anfängt',total:16500,
+ lead:'Bevor die Software vergleicht, muss sie das CT-Volumen auf das CAD-Modell legen. Wie das passiert, verändert das Ergebnis.',
+ steps:[{at:0,text:'Gestrichelt das CAD-Modell (Soll), grau das gemessene Teil (Ist). Es liegt noch irgendwo im Raum. Das Ist-Teil ist rechts etwas zu lang.'},
+  {at:2500,text:'BEST-FIT: Die Software schiebt und dreht das Teil so lange, bis die Abweichungen insgesamt am kleinsten sind.'},
+  {at:6000,text:'Ergebnis: Der Fehler wird auf beide Seiten verteilt – links und rechts je etwa 0,3 mm. Sieht harmlos aus.'},
+  {at:9000,text:'RPS: Das Teil wird an festen Bezugspunkten ausgerichtet – genau wie in der Zeichnung und später in der Bearbeitung.'},
+  {at:12500,text:'Jetzt sieht man die Wahrheit: Links passt alles, rechts sind es +0,6 mm. Best-Fit kann Fehler „wegmitteln“.'}],
+ draw(g,t){bg(g);
+  let dx,dy,rot;if(t<2500){dx=60;dy=-40;rot=.18;}else if(t<9000){const k=E(t,2500,5500);dx=60*(1-k)-4.5*k;dy=-40*(1-k);rot=.18*(1-k);}else{const k=E(t,9000,11500);dx=-4.5*(1-k);dy=0;rot=0;}
+  fillMetal(g,polyPath(AU.scan,dx,dy,rot),.9);
+  g.save();g.strokeStyle=C.text;g.lineWidth=2;g.setLineDash([7,5]);g.stroke(polyPath(AU.cad));g.restore();
+  const bf=IN(t,6000,9000),rps=F(t,12500);
+  if(bf>0){g.save();g.globalAlpha=bf;g.lineWidth=6;g.strokeStyle=C.gold;g.beginPath();g.moveTo(115.5,115);g.lineTo(115.5,295);g.stroke();g.beginPath();g.moveTo(484.5,115);g.lineTo(484.5,295);g.stroke();g.restore();pill(g,118,85,'−0,3',C.gold,bf);pill(g,482,85,'+0,3',C.gold,bf);}
+  if(t>9000){[[120,130],[120,280],[200,110]].forEach(p=>{g.save();g.globalAlpha=F(t,9000);g.fillStyle=C.indigo;g.beginPath();g.moveTo(p[0]-12,p[1]-8);g.lineTo(p[0],p[1]);g.lineTo(p[0]-12,p[1]+8);g.fill();g.restore();});}
+  if(rps>0){g.save();g.globalAlpha=rps;g.lineWidth=6;g.strokeStyle=C.up;g.beginPath();g.moveTo(120,115);g.lineTo(120,295);g.stroke();g.strokeStyle=C.down;g.beginPath();g.moveTo(489,115);g.lineTo(489,295);g.stroke();g.restore();pill(g,118,85,'0,0',C.up,rps);pill(g,486,85,'+0,6',C.down,rps);}
+  pill(g,300,40,'SOLL (CAD) · IST (CT)',C.text,IN(t,200,2500));
+  pill(g,300,40,'BEST-FIT',C.gold,IN(t,2600,9000));
+  pill(g,300,40,'RPS · BEZUGSPUNKTE',C.indigo,F(t,9100));
+  tag(g,'SOLL-IST · AUSRICHTUNG');},
+ box:{was:'Die Ausrichtung (Registrierung) legt das gemessene Teil auf das CAD-Modell. Erst danach werden Abweichungen berechnet.',
+  erkennen:['Best-Fit: minimale Gesamtabweichung über das ganze Teil','RPS / 3-2-1: Ausrichtung an definierten Bezugspunkten oder -flächen','Vorausrichtung + Feinausrichtung kombiniert'],
+  bedeutung:'Best-Fit verteilt Fehler und kann echte Verschiebungen verstecken. RPS zeigt die Abweichung so, wie sie in der Bearbeitung wirkt.',
+  tipp:'Für Kernversatz und Bearbeitungszugabe immer an den Bezugspunkten aus der Zeichnung ausrichten – sonst „verschwindet“ der Fehler in der Mittelung.'}});
+
+const SW_N=(()=>{const r=rng(91),L=[];for(let i=0;i<26;i++)L.push([80+r()*440,70+r()*130,.8+r()*1.6]);return L.filter(p=>Math.hypot(p[0]-300,p[1]-135)>55);})();
+add({id:'schwellwert',cat:'praxis',title:'Porositätsanalyse einstellen',sub:'Schwellwert und Mindestgröße',total:16500,
+ lead:'Die Defektanalyse entscheidet über einen Grauwert-Schwellwert, was Pore ist und was Metall. Die Einstellung verändert jedes Ergebnis.',
+ steps:[{at:0,text:'Eine Pore mit leicht unscharfem Rand, dazu etwas Bildrauschen. Unten das Grauwert-Profil durch die Pore.'},
+  {at:2500,text:'Schwellwert ZU NIEDRIG: Nur der dunkelste Kern zählt als Pore – sie wird zu klein gemessen.'},
+  {at:6000,text:'RICHTIG: Schwellwert etwa in der Mitte zwischen Luft und Aluminium. Die Pore wird in ihrer echten Größe erkannt.'},
+  {at:9500,text:'ZU HOCH: Jetzt wird auch Rauschen als Pore erkannt – plötzlich gibt es viele „Fehler“, die gar keine sind.'},
+  {at:13000,text:'Die MINDESTGRÖSSE filtert winzige Treffer heraus, die kleiner als ein paar Voxel sind – das Rauschen verschwindet.'}],
+ draw(g,t){bg(g);const body=mk([['r',60,55,480,170,20]]);fillMetal(g,body);
+  g.save();g.clip(body);const gr=g.createRadialGradient(300,135,0,300,135,52);gr.addColorStop(0,C.pore);gr.addColorStop(.62,C.pore);gr.addColorStop(1,hexA(C.pore,0));g.fillStyle=gr;g.beginPath();g.arc(300,135,52,0,7);g.fill();
+  SW_N.forEach(p=>{g.fillStyle=hexA(C.pore,.55);g.beginPath();g.arc(p[0],p[1],p[2],0,7);g.fill();});g.restore();
+  let th=.5,mode=0;if(t>=2500&&t<6000){th=.18;mode=1;}else if(t>=6000&&t<9500){th=.5;mode=2;}else if(t>=9500&&t<13000){th=.85;mode=3;}else if(t>=13000){th=.5;mode=4;}
+  if(mode){const rd=mode===1?24:mode===3?48:40;g.save();g.globalAlpha=.55;g.fillStyle=C.gold;g.beginPath();g.arc(300,135,rd,0,7);g.fill();if(mode===3)SW_N.forEach(p=>{g.beginPath();g.arc(p[0],p[1],p[2]+2,0,7);g.fill();});g.restore();}
+  const gy0=250,gy1=370;g.strokeStyle=C.line;g.lineWidth=1.2;g.strokeRect(60,gy0,480,gy1-gy0);
+  const val=x=>{const d=Math.abs(x-300);let v=.85;if(d<52)v=.85-.75*clamp((52-d)/22);return v+Math.sin(x*1.3)*.03+Math.sin(x*.41)*.02;};
+  g.save();g.strokeStyle=C.aqua;g.lineWidth=2.2;g.beginPath();for(let x=60;x<=540;x+=2){const y=gy1-6-val(x)*(gy1-gy0-12);x===60?g.moveTo(x,y):g.lineTo(x,y);}g.stroke();g.restore();
+  if(mode){const y=gy1-6-th*(gy1-gy0-12);g.save();g.strokeStyle=C.gold;g.lineWidth=2;g.setLineDash([8,5]);g.beginPath();g.moveTo(60,y);g.lineTo(540,y);g.stroke();g.restore();}
+  pill(g,460,265,'SCHWELLE ZU NIEDRIG',C.down,mode===1?1:0);
+  pill(g,460,265,'SCHWELLE RICHTIG',C.up,mode===2?1:0);
+  pill(g,460,265,'ZU HOCH: RAUSCHEN = FEHLER',C.down,mode===3?1:0);
+  pill(g,460,265,'MINDESTGRÖSSE FILTERT',C.up,mode===4?1:0);
+  text(g,66,gy0+12,'GRAUWERT',C.mute,10.5);
+  tag(g,'');},
+ box:{was:'Die Porositäts- bzw. Defektanalyse trennt Hohlräume vom Material über einen Grauwert-Schwellwert und filtert danach nach Größe.',
+  erkennen:['Schwellwert: etwa Mitte zwischen Luft- und Materialgrauwert (oft automatisch bestimmt)','Mindestgröße: in Voxeln oder mm, filtert Rauschen','Gleiche Einstellungen für alle Teile einer Serie verwenden'],
+  bedeutung:'Andere Einstellung = anderes Ergebnis. Nur mit festen, dokumentierten Parametern sind Messungen vergleichbar.',
+  tipp:'Ändere nie die Einstellungen, um ein Teil „gut“ zu bekommen. Wenn etwas komisch aussieht, frag nach dem freigegebenen Prüfprogramm.'}});
+
+add({id:'aufloesung',cat:'praxis',title:'Auflösung & Brennfleck',sub:'Was kann ich überhaupt sehen?',total:17000,
+ lead:'Wie klein ein Fehler sein darf, damit du ihn noch siehst, hängt von Voxelgröße und Brennfleck ab.',
+ steps:[{at:0,text:'Röhre (links), Bauteil (Mitte) und Detektor (rechts). Die Strahlung kommt aus dem BRENNFLECK.'},
+  {at:2000,text:'Kleiner Brennfleck (z. B. 0,4 mm): Die Kante des Bauteils wird auf dem Detektor fast scharf abgebildet.'},
+  {at:5500,text:'Großer Brennfleck (z. B. 1,0 mm): Die Kante verschmiert – es entsteht ein Halbschatten. Große Brennflecke braucht man oft für hohe Leistung.'},
+  {at:9500,text:'Die VERGRÖSSERUNG M = Abstand Röhre–Detektor ÷ Abstand Röhre–Bauteil. Voxelgröße ≈ Detektorpixel ÷ M.'},
+  {at:12500,text:'Faustregel: Ein Fehler sollte mehrere Voxel groß sein. Links grobe Voxel – die Pore ist kaum zu erkennen. Rechts feine Voxel – klar sichtbar.'}],
+ draw(g,t){bg(g);const A=t<12500;
+  if(A){const big=t>=5500,f=big?26:10,sx=70,sy=190,ox=260,dx=540;
+   g.save();g.fillStyle=C.mute;g.fillRect(30,150,30,80);g.fillStyle=C.gold;g.fillRect(sx-4,sy-f/2,8,f);g.restore();
+   fillMetal(g,mk([['r',ox,150,60,170,6]]));
+   g.strokeStyle=C.text;g.lineWidth=3;g.beginPath();g.moveTo(dx,60);g.lineTo(dx,340);g.stroke();
+   const hit=y0=>y0+(150-y0)*(dx-sx)/(ox-sx);const y1=hit(sy-f/2),y2=hit(sy+f/2);
+   g.save();g.globalAlpha=.5;g.strokeStyle=C.gold;g.lineWidth=1.2;[[sy-f/2,y1],[sy+f/2,y2]].forEach(r=>{g.beginPath();g.moveTo(sx,r[0]);g.lineTo(dx,r[1]);g.stroke();});g.restore();
+   g.save();g.fillStyle=hexA(C.down,.75);g.fillRect(dx-6,Math.min(y1,y2),12,Math.abs(y2-y1)+1);g.restore();
+   pill(g,sx,120,big?'BRENNFLECK 1,0 mm':'BRENNFLECK 0,4 mm',C.gold,F(t,300));
+   pill(g,dx-40,y2+30,big?'UNSCHARF':'FAST SCHARF',big?C.down:C.up,F(t,big?5600:2100),'r');
+   pill(g,ox+30,345,'BAUTEIL',C.text,F(t,300));pill(g,dx,45,'DETEKTOR',C.text,F(t,300),'r');
+   if(t>9500){dim(g,sx,375,dx,375,C.blue,F(t,9500));dim(g,sx,358,ox,358,C.indigo,F(t,9800));text(g,300,385,'M = SDD ÷ SOD',C.blue,12,'center',F(t,9600));}}
+  else{[[40,'GROBE VOXEL',28],[320,'FEINE VOXEL',10]].forEach((p,i)=>{const x=p[0],cs=p[2],k=F(t,12500+i*600);g.save();g.globalAlpha=k;g.beginPath();g.rect(x,80,240,240);g.clip();
+    for(let yy=80;yy<320;yy+=cs)for(let xx=x;xx<x+240;xx+=cs){const cx=xx+cs/2,cy=yy+cs/2,d=Math.hypot(cx-(x+120),cy-200);const cov=clamp((12-d)/cs+.5);const m=C.name==='dark'?[139,149,161]:[152,162,174];const v=m.map(c=>Math.round(c*(1-cov*.85)));g.fillStyle=`rgb(${v})`;g.fillRect(xx,yy,cs,cs);}g.restore();g.strokeStyle=C.line;g.strokeRect(x,80,240,240);});
+   pill(g,160,50,'GROBE VOXEL',C.down,F(t,12500));pill(g,440,50,'FEINE VOXEL',C.up,F(t,13100));pill(g,300,355,'GLEICHE PORE, Ø ≈ 3 VOXEL VS. 8 VOXEL',C.text,F(t,13800));}
+  tag(g,t<9500?'SCHEMA · DRAUFSICHT':'');},
+ box:{was:'Die Auflösung im CT wird vor allem von der Voxelgröße (Geometrie + Detektor) und der Unschärfe durch den Brennfleck bestimmt.',
+  erkennen:['Voxelgröße ≈ Detektorpixel ÷ Vergrößerung','Größerer Brennfleck = mehr Kantenunschärfe, besonders bei hoher Vergrößerung','Mehr Leistung (kV, W) braucht oft einen größeren Brennfleck'],
+  bedeutung:'Kleinste sicher erkennbare Fehler liegen meist bei mehreren Voxeln. Darunter kannst du Poren nicht zuverlässig von Rauschen trennen.',
+  tipp:'Bei dicken, dichten Teilen brauchst du viel Leistung (großer Brennfleck), bei kleinen Details einen kleinen Brennfleck und hohe Vergrößerung – beides gleichzeitig geht oft nicht.'}});
+
+const DOK_V=[[30,'XY',shrinkShape(101,22,.9)],[215,'XZ',shrinkShape(102,26,.6)],[400,'YZ',shrinkShape(103,18,1)]];
+add({id:'dokumentation',cat:'praxis',title:'Befund dokumentieren',sub:'Drei Schnitte, Lage, Größe',total:15500,
+ lead:'Ein guter Befund ist für jeden nachvollziehbar – auch für die Gießerei, die den Fehler abstellen soll.',
+ steps:[{at:0,text:'Den Fehler immer in allen DREI SCHNITTRICHTUNGEN zeigen: XY, XZ und YZ – mit Fadenkreuz auf dem Fehler.'},
+  {at:4000,text:'LAGE angeben: Koordinaten im Bauteil-Koordinatensystem oder die Position bezogen auf ein Merkmal.'},
+  {at:7000,text:'GRÖSSE angeben: Äquivalentdurchmesser bzw. größte Ausdehnung und Volumen aus der Defektanalyse.'},
+  {at:9500,text:'ABSTAND zur nächsten Oberfläche und die ZONE (z. B. Dichtfläche) – das entscheidet oft über i. O. oder n. i. O.'},
+  {at:12000,text:'Dazu Bauteil, Seriennummer, Prüfprogramm und Datum. Fertig ist ein Befund, mit dem jeder arbeiten kann.'}],
+ draw(g,t){bg(g);DOK_V.forEach((v,i)=>{const x=v[0],k=F(t,i*500);if(k<=0)return;g.save();g.globalAlpha=k;fillMetal(g,mk([['r',x,40,170,140,12]]));drawShrink(g,x+85,110,v[2],1);
+   g.strokeStyle=C.gold;g.lineWidth=1.2;g.beginPath();g.moveTo(x+85,44);g.lineTo(x+85,176);g.moveTo(x+4,110);g.lineTo(x+166,110);g.stroke();g.restore();pill(g,x+28,58,v[1],C.gold,k);});
+  const L=[['LAGE: X 112,4 · Y 38,0 · Z 56,2 mm',4000,C.text],['GRÖSSE: Ø 1,8 mm · V 3,1 mm³',7000,C.text],['ABSTAND ZUR FLÄCHE: 0,9 mm',9500,C.down],['ZONE: DICHTFLÄCHE',9900,C.down],['BAUTEIL · SERIENNR. · PROGRAMM · DATUM',12100,C.mute]];
+  L.forEach((l,i)=>text(g,40,220+i*32,'▸ '+l[0],l[2],13.5,'left',F(t,l[1])));
+  tag(g,'');},
+ box:{was:'Die Dokumentation hält einen Befund so fest, dass er ohne Rückfrage verstanden und mit späteren Teilen verglichen werden kann.',
+  erkennen:['Screenshots aus drei Schnittrichtungen mit Fadenkreuz','Lage, Größe, Abstand zur Oberfläche, Zone','Bauteil, Seriennummer, Prüfprogramm, Datum'],
+  bedeutung:'Nur mit vollständiger Dokumentation kann die Gießerei Ursachen finden und erkennen, ob ein Fehler immer an der gleichen Stelle auftritt.',
+  tipp:'Nutze immer dieselbe Reihenfolge und Vorlage. Dann sind Befunde verschiedener Kollegen direkt vergleichbar.'}});
+
+LESSONS.sort((a,b)=>AREAS.findIndex(x=>x.id===a.cat)-AREAS.findIndex(x=>x.id===b.cat));
 /* =================== Quiz-Bilder =================== */
 const QTYPES={
  gas:{name:'Gasporosität',lesson:'gasporositaet',expl:'Viele kleine, runde Poren mit glatter Wand, über den Bereich verteilt – typische Gasporosität durch Wasserstoff.'},
@@ -890,9 +1275,21 @@ const QTYPES={
  oxid:{name:'Oxidhaut',lesson:'oxidhaut',expl:'Eine feine, gewellte dunkle Linie mit kleinen Poren daran – eine eingefaltete Oxidhaut (Doppelfilm).'},
  kaltlauf:{name:'Kaltlauf',lesson:'kaltlauf',expl:'Eine feine Linie quer durch die dünne Wand mit Kerben an der Oberfläche – zwei Fließfronten sind nicht verschweißt.'},
  riss:{name:'Warmriss',lesson:'warmriss',expl:'Ein verästelter, zackiger Riss an der Innenecke – ein Warmriss durch Schwindungsspannung.'},
+ fremd:{name:'Fremdeinschluss (Eisen)',lesson:'fremdeinschluss',expl:'Ein heller, unregelmäßiger Fleck – dichter als Aluminium. Das ist ein Fremdmetall wie Eisen oder Stahl.'},
+ sand:{name:'Sandeinschluss',lesson:'sandeinschluss',expl:'Ein körniger Fleck, dunkler als Aluminium, aber heller als Luft – eingeschlossener Kern- oder Formsand.'},
+ kerngas:{name:'Kerngas-Blasen',lesson:'kerngas',expl:'Runde Poren direkt an der Oberseite der Kanalwand – Gas aus dem Kernbinder.'},
+ penetration:{name:'Penetration',lesson:'penetration',expl:'Die Kanalwand ist rau und zackig, Metallspitzen ragen in den Kanal – das Metall ist in den Kernsand eingedrungen.'},
+ druckguss:{name:'Druckguss-Porosität',lesson:'druckguss',expl:'Dichte Randschale außen, viele Poren in der Wandmitte einer dünnen Wand – typisch für Druckguss.'},
+ oxidnest:{name:'Oxidnest',lesson:'oxidnest',expl:'Mehrere verknäulte dünne Linien mit Poren und Partikeln an einer Stelle – ein Oxidnest.'},
  artefakt:{name:'CT-Artefakt (kein Fehler)',lesson:'artefakte',expl:'Dunkle Streifen genau zwischen den zwei dichten Stahlbuchsen – Strahlaufhärtung, ein Messartefakt und kein Bauteilfehler.'}};
 function quizImage(g,type,seed){const r=rng(seed);bg(g);
  const dx=(r()-.5)*60,dy=(r()-.5)*30;
+ if(type==='druckguss'){fillMetal(g,mk([['r',40,150,520,100,8]]));poreField(seed,26,{box:[50,180,500,40],ok:()=>true},1.4,4.6).forEach(q=>pore(g,q.x,q.y,q.r));return;}
+ if(type==='kerngas'){fillMetal(g,mk([['r',50,60,500,280,24],['r',150+dx,170,300,80,18]]));[[.15,6],[.45,8],[.75,5]].forEach(p=>{if(r()<.85)pore(g,150+dx+300*p[0]+r()*20,170-p[1]*.55,p[1]+r()*2);});return;}
+ if(type==='penetration'){fillMetal(g,mk([['r',50,60,500,280,24]]));const P=[[140,250]];for(let x=140;x<=460;x+=10)P.push([x,170+(x>180&&x<420?(r()<.5?r()*16:r()*5):0)]);P.push([460,250]);const p=mk([['p',P]]);g.fillStyle=C.bg;g.fill(p);g.strokeStyle=C.edge;g.stroke(p);return;}
+ if(type==='fremd'){fillMetal(g,mk([['r',50,60,500,280,24]]));g.save();g.clip(mk([['r',50,60,500,280,24]]));streaks(g,330+dx,195+dy,540,185+dy,.7);g.restore();drawBlob(g,300+dx,195+dy,blobShape(seed,12+r()*8),1,C.iron,C.edge);return;}
+ if(type==='sand'){fillMetal(g,mk([['r',50,60,500,280,24]]));sandBlob(g,300+dx,195+dy,blobShape(seed,22+r()*8,.75),1,seed);return;}
+ if(type==='oxidnest'){fillMetal(g,mk([['r',50,60,500,280,24]]));for(let i=0;i<8;i++){const a=r()*Math.PI,len=25+r()*35,x=260+dx+r()*70,y=165+dy+r()*55;wavy(g,x,y,x+Math.cos(a)*len,y+Math.sin(a)*len,3,1.5,1,1.5,C.pore,r()*6);}for(let i=0;i<14;i++){const x=250+dx+r()*110,y=160+dy+r()*80;if(r()<.5)pore(g,x,y,1+r()*2.5);else{g.fillStyle=C.sandCT;g.fillRect(x,y,4,3);}}return;}
  if(type==='riss'){fillMetal(g,WR.path);const a=r()*.3;drawCrack(g,crackPts(seed,202,232,150-a*80,290+a*20,9,5),1,3.4);drawCrack(g,crackPts(seed+1,176,258,190,292,5,3),1,2);return;}
  if(type==='kaltlauf'){const b=mk([['r',40,150,520,90,12]]);fillMetal(g,b);const x=240+r()*120;g.strokeStyle=C.pore;g.lineWidth=2;g.beginPath();g.moveTo(x,150);g.bezierCurveTo(x-6,180,x+6,210,x-2,240);g.stroke();g.fillStyle=C.pore;g.beginPath();g.moveTo(x-9,150);g.lineTo(x+9,150);g.lineTo(x,164);g.fill();g.beginPath();g.moveTo(x-9,240);g.lineTo(x+7,240);g.lineTo(x-1,228);g.fill();return;}
  if(type==='artefakt'){ctFrame(g);fillMetal(g,AR.body);g.save();g.globalAlpha=.7;const gr=g.createLinearGradient(0,170,0,230);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(.5,'rgba(0,0,0,.75)');gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(230,172,140,56);g.strokeStyle='rgba(0,0,0,.45)';g.lineWidth=1.5;for(let i=-4;i<=4;i++){g.beginPath();g.moveTo(220,200+i*3);g.lineTo(380,200-i*3);g.stroke();}g.restore();[[200,200],[400,200]].forEach(p=>{g.fillStyle=C.iron;g.beginPath();g.arc(p[0],p[1],34,0,Math.PI*2);g.moveTo(p[0]+20,p[1]);g.arc(p[0],p[1],20,0,Math.PI*2,true);g.fill('evenodd');});return;}
@@ -928,9 +1325,28 @@ const WISSEN=[
  ['Was ist eine Oxidhaut im Gussteil?','Eine eingefaltete Oxidschicht von der Schmelzeoberfläche',['Eine Lackschicht','Ein Rest vom Sandkern','Eine Pore aus Sauerstoff'],'oxidhaut'],
  ['Welches Verfahren schließt durch die sehr schnelle Füllung eher Luft ein?','Druckguss',['Schwerkraft-Kokillenguss','Niederdruckguss','Sandguss ohne Druck'],'verfahren'],
  ['Was ist eine Unterfüllung?','Ein Bereich der Form wird nicht mit Metall gefüllt',['Zu viel Metall in der Form','Ein Riss im Kern','Eine Pore unter der Oberfläche'],'unterfuellung']];
+WISSEN.push(
+ ['Ein heller Fleck im Aluminium deutet auf …','ein Fremdmetall höherer Dichte (z. B. Eisen)',['eine Gaspore','Kernsand','eine Oxidhaut'],'fremdeinschluss'],
+ ['Wie sieht Kernsand im CT aus?','Körnig, dunkler als Aluminium, aber heller als Luft',['Weiß und glatt','Schwarz und kugelrund','Als feine gerade Linie'],'sandeinschluss'],
+ ['Wo liegen Kerngas-Blasen typischerweise?','Direkt an der Kernoberfläche, oft an der Oberseite',['Nur außen an der Formwand','Mitten in dicken Wänden ohne Kern','Nur in dünnen Rippen'],'kerngas'],
+ ['Was ist Penetration?','Metall dringt zwischen die Sandkörner des Kerns ein',['Eine Pore durchbricht die Oberfläche','Der Kern löst sich auf','Röntgenstrahlung durchdringt das Teil'],'penetration'],
+ ['Wo sitzen Poren im Druckguss meistens?','In der Wandmitte – die Randschale ist dicht',['Nur direkt an der Oberfläche','Gleichmäßig in der ganzen Wand','Nur im Anguss'],'druckguss'],
+ ['Warum ist Fräsen bei Druckguss heikel?','Es entfernt die dichte Randschale und legt Poren frei',['Es macht das Teil schwerer','Es verändert die Legierung','Es erzeugt neue Lunker'],'druckguss'],
+ ['Was ist am Zylinderkopf besonders kritisch?','Der Ventilsteg zwischen den Ventilen',['Die Außenseite der Abdeckung','Der Anguss','Die Beschriftung'],'zylinderkopf'],
+ ['Wie erscheint eine eingegossene Graugussbuchse im CT?','Als heller Ring',['Als schwarzer Ring','Unsichtbar','Körnig grau'],'kurbelgehaeuse'],
+ ['Wo sammelt sich in Strukturteilen gern Porosität?','In Knoten, wo Rippen zusammenlaufen',['In der Mitte dünner Rippen','An glatten Außenflächen','Nur an Kanten'],'strukturteil'],
+ ['Was misst die Kugelmethode der Wanddickenanalyse?','Die größte Kugel, die an einer Stelle in die Wand passt',['Das Gewicht des Bauteils','Die Rundheit von Poren','Den Abstand zum Detektor'],'wanddicke'],
+ ['Was macht die Best-Fit-Ausrichtung?','Sie verteilt die Abweichungen möglichst klein über das ganze Teil',['Sie richtet an drei festen Bezugspunkten aus','Sie misst die Wanddicke','Sie entfernt Rauschen'],'ausrichtung'],
+ ['Was passiert, wenn der Schwellwert der Porenanalyse zu hoch ist?','Rauschen wird als Pore erkannt',['Poren werden zu klein gemessen','Das Bild wird heller','Nichts'],'schwellwert'],
+ ['Wozu dient die Mindestgröße in der Defektanalyse?','Um winzige Treffer wie Rauschen herauszufiltern',['Um große Lunker auszublenden','Um das Volumen zu verdoppeln','Um die Voxelgröße zu ändern'],'schwellwert'],
+ ['Was bewirkt ein größerer Brennfleck?','Mehr Unschärfe an Kanten',['Mehr Schärfe','Kleinere Voxel','Weniger Strahlaufhärtung'],'aufloesung'],
+ ['Was gehört in eine gute Befund-Doku?','Drei Schnittrichtungen, Lage, Größe, Abstand zur Fläche',['Nur ein Screenshot in einer Richtung','Nur das Ergebnis i. O./n. i. O.','Nur die Seriennummer'],'dokumentation']);
 function shuffle(a,r=Math.random){for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 const pick=a=>a[Math.floor(Math.random()*a.length)];
-function rechenFrage(){const typ=pick(['por','dq','rest','vox','schw']);
+function rechenFrage(){const typ=pick(['por','dq','rest','vox','schw','pix','versatz','mag']);
+ if(typ==='pix'){const p=pick([0.1,0.15,0.2,0.4]),M=pick([2,4,5,8]),v=p/M;return{q:`Detektorpixel ${de(p,2)} mm, Vergrößerung ${M}-fach. Wie groß ist der Voxel ungefähr?`,a:de(v,3)+' mm',w:[de(p*M,2)+' mm',de(p,2)+' mm',de(v/2,4)+' mm'],lesson:'aufloesung',ex:`Voxel ≈ Pixel ÷ Vergrößerung = ${de(p,2)} ÷ ${M} = ${de(v,3)} mm.`};}
+ if(typ==='versatz'){const s=pick([3,3.5,4,4.5]),e=pick([0.5,0.8,1,1.2]);return{q:`Soll-Wanddicke beidseitig ${de(s)} mm. Der Kern ist um ${de(e)} mm zur Seite versetzt. Wie dick ist die dünnere Wand?`,a:de(s-e)+' mm',w:[de(s+e)+' mm',de(s)+' mm',de(s-2*e)+' mm'],lesson:'kernversatz',ex:`Die eine Wand wird um den Versatz dünner: ${de(s)} − ${de(e)} = ${de(s-e)} mm (die andere ${de(s+e)} mm dicker).`};}
+ if(typ==='mag'){const sdd=pick([800,1000,1200]),M=pick([2,4,5]),sod=sdd/M;return{q:`Abstand Röhre–Detektor ${sdd.toLocaleString('de-DE')} mm, Abstand Röhre–Bauteil ${sod.toLocaleString('de-DE')} mm. Wie groß ist die Vergrößerung?`,a:M+'-fach',w:[de(1/M,2)+'-fach',(sdd-sod).toLocaleString('de-DE')+'-fach',(M*2)+'-fach'],lesson:'aufloesung',ex:`M = ${sdd.toLocaleString('de-DE')} ÷ ${sod.toLocaleString('de-DE')} = ${M}.`};}
  if(typ==='por'){const vp=pick([12,18,24,30,36,45,60]),vr=pick([8000,12000,15000,20000,24000]),p=vp/vr*100;
   return{q:`Im Prüfbereich von ${vr.toLocaleString('de-DE')} mm³ haben alle Poren zusammen ${vp} mm³. Wie groß ist die Porosität?`,a:de(p,2)+' %',w:[de(p*10,2)+' %',de(p/10,3)+' %',de(p*2,2)+' %'],lesson:'porositaet',ex:`Porosität = ${vp} ÷ ${vr.toLocaleString('de-DE')} × 100 = ${de(p,2)} %.`};}
  if(typ==='dq'){const d=pick([1,1.5,2,2.5,3]),v=Math.PI*d*d*d/6;
@@ -960,7 +1376,7 @@ function buildNav(){const q=($('#search').value||'').trim().toLowerCase();let h=
  AREAS.forEach(a=>{const ls=LESSONS.filter(l=>l.cat===a.id&&(!q||(l.title+' '+l.sub+' '+a.name).toLowerCase().includes(q)));if(!ls.length)return;any=true;
   h+=`<div class="cat" style="--acc:var(${a.acc})">${esc(a.name)}</div>`;
   ls.forEach(l=>{h+=`<button class="item${ST.seen[l.id]?' seen':''}${cur.l===l.id?' on':''}" data-id="${l.id}"><img alt="" src="${thumb(l)}"><div><b>${esc(l.title)}</b><span>${esc(l.sub)}</span></div><span class="ok">✓</span></button>`;});});
- if(!q||'quiz test'.includes(q)){h+=`<div class="cat" style="--acc:var(--up)">Quiz</div><button class="item" data-quiz="1"><div><b>Welcher Fehler ist das?</b><span>10 zufällige Fragen</span></div></button>`;any=true;}
+ if(!q||'quiz test'.includes(q)){h+=`<div class="cat" style="--acc:var(--up)">Quiz</div><button class="item" data-quiz="1"><div><b>Quiz</b><span>3 Modi · bis zu 20 Fragen</span></div></button>`;any=true;}
  if(!any)h='<div class="nores">Keine Lektion gefunden.</div>';
  $('#list').innerHTML=h;}
 $('#list').addEventListener('click',e=>{const b=e.target.closest('.item');if(!b)return;if(b.dataset.quiz)location.hash='#quiz';else location.hash='#l-'+b.dataset.id;});
@@ -972,7 +1388,7 @@ const V=$('#view');
 function route(){stopPlayer();const h=location.hash.slice(1);cur={l:null};
  if(h.startsWith('l-')){const l=LESSONS.find(x=>x.id===h.slice(2));if(l){cur.l=l.id;showLesson(l);}else showHome();}
  else if(h.startsWith('b-')&&AREA[h.slice(2)])showArea(AREA[h.slice(2)]);
- else if(h==='quiz')startQuiz();
+ else if(h==='quiz')showQuizMenu();
  else showHome();
  buildNav();window.scrollTo(0,0);}
 window.addEventListener('hashchange',route);
@@ -985,7 +1401,7 @@ function showHome(){
  <a class="ghost" href="https://ct.kompassapps.de" target="_blank" rel="noopener">↗ Zur CT-Schule</a></div><div class="bigtiles">`;
  AREAS.forEach((a,i)=>{const ls=LESSONS.filter(l=>l.cat===a.id),n=ls.filter(l=>ST.seen[l.id]).length;
   h+=`<button class="big" style="--acc:var(${a.acc})" onclick="location.hash='#b-${a.id}'"><span class="bi">${a.icon}</span><div class="no">BEREICH ${i+1}</div><h2>${esc(a.name)}</h2><p>${esc(a.desc)}</p><div class="ft"><div class="pb"><i style="width:${n/ls.length*100}%"></i></div><span>${n}/${ls.length}</span><span class="go">→</span></div></button>`;});
- h+=`<button class="big" style="--acc:var(--up)" onclick="location.hash='#quiz'"><span class="bi"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="28" cy="28" r="22"/><path d="M21 22a7 7 0 1 1 10 6c-2 1-3 3-3 5"/><circle cx="28" cy="40" r="1.5" fill="currentColor"/></svg></span><div class="no">QUIZ</div><h2>Welcher Fehler ist das?</h2><p>10 zufällige Fragen: Bilder, Wissen und Rechenaufgaben.</p><div class="ft"><span>BESTWERT ${ST.best}/10</span><span class="go" style="margin-left:auto">→</span></div></button>`;
+ h+=`<button class="big" style="--acc:var(--up)" onclick="location.hash='#quiz'"><span class="bi"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="28" cy="28" r="22"/><path d="M21 22a7 7 0 1 1 10 6c-2 1-3 3-3 5"/><circle cx="28" cy="40" r="1.5" fill="currentColor"/></svg></span><div class="no">QUIZ</div><h2>Quiz</h2><p>Drei Modi: Quiz, Prüfungsmodus und Schnellrunde „Gas oder Lunker?“.</p><div class="ft"><span>BESTWERT ${ST.best}/10 · PRÜFUNG ${ST.bestP||0}/20</span><span class="go" style="margin-left:auto">→</span></div></button>`;
  h+=`</div><p class="disc">Die Bilder sind vereinfachte Zeichnungen zum Lernen. Verbindlich für die Bewertung sind immer Zeichnung, Prüfvorgabe und die Grenzwerte im Werk.</p></div>`;
  V.innerHTML=h;}
 
@@ -1029,18 +1445,25 @@ function loop(now){if(!PL.l)return;const dt=Math.min(100,now-PL.last);PL.last=no
 
 /* ---------- Quiz ---------- */
 let QZ=null;
-function startQuiz(){const qs=[];
- const types=shuffle(Object.keys(QTYPES)).slice(0,5);
- types.forEach(tp=>{const others=shuffle(Object.keys(QTYPES).filter(x=>x!==tp)).slice(0,3);qs.push({kind:'BILDERFRAGE',img:tp,seed:1+Math.floor(Math.random()*9999),q:tp==='artefakt'?'Was ist hier zu sehen?':'Welcher Fehler ist das?',a:QTYPES[tp].name,opts:shuffle([tp,...others].map(x=>QTYPES[x].name)),ex:QTYPES[tp].expl,lesson:QTYPES[tp].lesson});});
- shuffle(WISSEN.slice()).slice(0,3).forEach(w=>qs.push({kind:'WISSENSFRAGE',q:w[0],a:w[1],opts:shuffle([w[1],...w[2]]),ex:'Richtige Antwort: '+w[1]+'.',lesson:w[3]}));
- for(let i=0;i<2;i++){const r=rechenFrage();qs.push({kind:'RECHENAUFGABE',q:r.q,a:r.a,opts:shuffle([r.a,...r.w.filter((x,j,arr)=>x!==r.a&&arr.indexOf(x)===j)]).slice(0,4),ex:r.ex,lesson:r.lesson});}
- QZ={qs:shuffle(qs),i:0,score:0,wrong:[],answered:false};showQ();}
-function showQ(){const q=QZ.qs[QZ.i];
- V.innerHTML=`<button class="back" onclick="location.hash=''">← Startseite</button><div class="kicker" style="color:var(--up)">QUIZ · FRAGE ${QZ.i+1} VON ${QZ.qs.length} · ${QZ.score} RICHTIG</div><h1>Quiz</h1>
+const MODES={normal:{n:'Quiz',cnt:10,key:'best',desc:'10 gemischte Fragen: Bilder, Wissen, Rechnen.',acc:'--up',b:5,w:3,r:2},
+ pruefung:{n:'Prüfungsmodus',cnt:20,key:'bestP',desc:'20 Fragen aus allen Bereichen – wie eine kleine Prüfung.',acc:'--gold',b:8,w:7,r:5},
+ schnell:{n:'Gas oder Lunker?',cnt:10,key:'bestS',desc:'Schnellrunde: 10 Bilder, nur eine Entscheidung.',acc:'--aqua'}};
+function showQuizMenu(){QZ=null;let h=`<button class="back" onclick="location.hash=''">← Startseite</button><div class="kicker" style="color:var(--up)">QUIZ · 3 MODI</div><h1>Quiz</h1><p class="lead">Wähle einen Modus. Nach jeder Antwort gibt es eine Erklärung und einen Link zur passenden Lektion.</p><div class="bigtiles">`;
+ Object.entries(MODES).forEach(([k,m])=>{h+=`<button class="big" style="--acc:var(${m.acc})" onclick="startQuiz('${k}')"><div class="no">${m.cnt} FRAGEN</div><h2>${esc(m.n)}</h2><p>${esc(m.desc)}</p><div class="ft"><span>BESTWERT ${ST[m.key]||0}/${m.cnt}</span><span class="go" style="margin-left:auto">→</span></div></button>`;});
+ V.innerHTML=h+'</div>';window.scrollTo(0,0);}
+function bildFrage(tp){const others=shuffle(Object.keys(QTYPES).filter(x=>x!==tp)).slice(0,3);return{kind:'BILDERFRAGE',img:tp,seed:1+Math.floor(Math.random()*9999),q:tp==='artefakt'?'Was ist hier zu sehen?':'Welcher Fehler ist das?',a:QTYPES[tp].name,opts:shuffle([tp,...others].map(x=>QTYPES[x].name)),ex:QTYPES[tp].expl,lesson:QTYPES[tp].lesson};}
+function startQuiz(mode='normal'){const m=MODES[mode],qs=[];
+ if(mode==='schnell'){for(let i=0;i<10;i++){const tp=pick(['gas','blase','makro','mikro','gas','makro']),gas=tp==='gas'||tp==='blase';qs.push({kind:'SCHNELLRUNDE',img:tp,seed:1+Math.floor(Math.random()*9999),q:'Gas oder Lunker?',a:gas?'Gas (rund, glatt)':'Lunker (zerklüftet)',opts:['Gas (rund, glatt)','Lunker (zerklüftet)'],ex:QTYPES[tp].expl,lesson:'gas-oder-lunker'});}}
+ else{shuffle(Object.keys(QTYPES)).slice(0,m.b).forEach(tp=>qs.push(bildFrage(tp)));
+  shuffle(WISSEN.slice()).slice(0,m.w).forEach(w=>qs.push({kind:'WISSENSFRAGE',q:w[0],a:w[1],opts:shuffle([w[1],...w[2]]),ex:'Richtige Antwort: '+w[1]+'.',lesson:w[3]}));
+  const seen=new Set();let guard=0;while(seen.size<m.r&&guard++<50){const r=rechenFrage();if(seen.has(r.q))continue;seen.add(r.q);qs.push({kind:'RECHENAUFGABE',q:r.q,a:r.a,opts:shuffle([r.a,...r.w.filter((x,j,arr)=>x!==r.a&&arr.indexOf(x)===j)]).slice(0,4),ex:r.ex,lesson:r.lesson});}}
+ QZ={mode,qs:mode==='schnell'?qs:shuffle(qs),i:0,score:0,wrong:[],answered:false};if(location.hash!=='#quiz')history.replaceState(null,'','#quiz');showQ();}
+function showQ(){const q=QZ.qs[QZ.i],m=MODES[QZ.mode];
+ V.innerHTML=`<button class="back" onclick="showQuizMenu()">← Quiz-Auswahl</button><div class="kicker" style="color:var(${m.acc})">${esc(m.n.toUpperCase())} · FRAGE ${QZ.i+1} VON ${QZ.qs.length} · ${QZ.score} RICHTIG</div><h1>${esc(m.n)}</h1>
  <div class="qcard"><div class="qbar"><i style="width:${QZ.i/QZ.qs.length*100}%"></i></div><div class="qtype">${q.kind}</div><p class="qq">${esc(q.q)}</p>${q.img?'<div class="qcv"><canvas id="qcv"></canvas></div>':''}
  <div class="opts">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o)}</button>`).join('')}</div><div id="fb"></div></div>`;
  if(q.img)drawQImg();
- document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(b));}
+ document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(b));window.scrollTo(0,0);}
 function drawQImg(){const q=QZ&&QZ.qs[QZ.i];const c=$('#qcv');if(!q||!c)return;const w=c.parentElement.clientWidth||600,dpr=Math.min(2.5,window.devicePixelRatio||1);c.width=Math.round(w*dpr);c.height=Math.round(w*H/W*dpr);const g=c.getContext('2d');g.setTransform(c.width/W,0,0,c.width/W,0,0);NOPILL=true;quizImage(g,q.img,q.seed);NOPILL=false;}
 function answer(b){if(QZ.answered)return;QZ.answered=true;const q=QZ.qs[QZ.i],ok=q.opts[+b.dataset.i]===q.a;
  document.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(q.opts[+x.dataset.i]===q.a)x.classList.add('ok');});if(!ok)b.classList.add('bad');
@@ -1048,12 +1471,12 @@ function answer(b){if(QZ.answered)return;QZ.answered=true;const q=QZ.qs[QZ.i],ok
  const L=LESSONS.find(l=>l.id===q.lesson);
  $('#fb').innerHTML=`<div class="fb"><b style="color:var(${ok?'--up':'--down'})">${ok?'✓ RICHTIG!':'✗ LEIDER FALSCH.'}</b> ${esc(q.ex)}</div><div class="qnav"><button onclick="location.hash='#l-${L.id}'">📖 Lektion: ${esc(L.title)}</button><button class="main" id="qnext">${QZ.i<QZ.qs.length-1?'Nächste Frage →':'Ergebnis anzeigen'}</button></div>`;
  $('#qnext').onclick=()=>{QZ.i++;QZ.answered=false;if(QZ.i<QZ.qs.length)showQ();else showResult();};}
-function showResult(){const s=QZ.score,neu=s>ST.best;if(neu){ST.best=s;save();}
- const msg=s===10?'Perfekt – du bist bereit für die CT-Prüfung!':s>=7?'Sehr gut! Nur noch ein paar Lücken.':s>=4?'Guter Anfang – wiederhole die markierten Lektionen.':'Schau dir die Lektionen noch einmal in Ruhe an.';
- V.innerHTML=`<button class="back" onclick="location.hash=''">← Startseite</button><div class="kicker" style="color:var(--up)">QUIZ · ERGEBNIS</div><h1>Geschafft!</h1>
- <div class="qcard"><div class="score" style="color:var(${s>=7?'--up':s>=4?'--gold':'--down'})">${s} / 10</div><p class="lead" style="margin:0 0 6px">${msg}</p><div class="kicker">BESTWERT: ${ST.best} / 10${neu?' · NEUER REKORD!':''}</div>
+function showResult(){const s=QZ.score,m=MODES[QZ.mode],n=QZ.qs.length,pct=s/n,neu=s>(ST[m.key]||0);if(neu){ST[m.key]=s;save();}
+ const msg=pct===1?'Perfekt – du bist bereit für die CT-Prüfung!':pct>=.7?'Sehr gut! Nur noch ein paar Lücken.':pct>=.4?'Guter Anfang – wiederhole die markierten Lektionen.':'Schau dir die Lektionen noch einmal in Ruhe an.';
+ V.innerHTML=`<button class="back" onclick="showQuizMenu()">← Quiz-Auswahl</button><div class="kicker" style="color:var(${m.acc})">${esc(m.n.toUpperCase())} · ERGEBNIS</div><h1>Geschafft!</h1>
+ <div class="qcard"><div class="score" style="color:var(${pct>=.7?'--up':pct>=.4?'--gold':'--down'})">${s} / ${n}</div><p class="lead" style="margin:0 0 6px">${msg}</p><div class="kicker">BESTWERT: ${ST[m.key]} / ${n}${neu?' · NEUER REKORD!':''}</div>
  ${QZ.wrong.length?`<h3 class="kicker" style="margin-top:18px;color:var(--down)">DAS SOLLTEST DU WIEDERHOLEN</h3><div class="rep">${QZ.wrong.map(id=>{const L=LESSONS.find(l=>l.id===id);return`<button onclick="location.hash='#l-${id}'">📖 ${esc(L.title)} <span style="color:var(--mute)">· ${esc(AREA[L.cat].name)}</span></button>`;}).join('')}</div>`:''}
- <div class="qnav"><button onclick="location.hash=''">Startseite</button><button class="main" onclick="startQuiz()">Neues Quiz ↻</button></div></div>`;}
+ <div class="qnav"><button onclick="showQuizMenu()">Quiz-Auswahl</button><button class="main" onclick="startQuiz('${QZ.mode}')">Nochmal ↻</button></div></div>`;window.scrollTo(0,0);}
 window.addEventListener('resize',()=>{if(QZ&&location.hash==='#quiz'&&$('#qcv'))drawQImg();});
 
 /* =================== Hell/Dunkel =================== */
